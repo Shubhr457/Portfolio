@@ -145,6 +145,14 @@ const experiences = [
 
 const projects = [
   {
+    title: "Real-Time Team Task Management System",
+    description: "A comprehensive real-time task management backend with Socket.IO for live updates, JWT + OTP authentication, role-based access control, team collaboration, and activity logging.",
+    tech: ["Node.js", "TypeScript", "MongoDB", "Socket.IO", "Express"],
+    category: "Backend",
+    github: "https://github.com/Shubhr457/Real-Time-Team-Task-Management-System",
+    live: "https://real-time-team-task-management-system-4.onrender.com",
+  },
+  {
     title: "Real Estate Marketplace",
     description: "A comprehensive marketplace built on Solana featuring ownership transfers, bidding system, marketplace governance, and full backend integration.",
     tech: ["Solana", "Rust", "Anchor", "TypeScript", "PostgreSQL"],
@@ -645,18 +653,44 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <div key={index} className="card p-6 group cursor-pointer">
+              <div
+                key={index}
+                className="card p-6 group"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#00ff88]/10 text-[#00ff88]">
                     {project.category}
                   </span>
-                  <ExternalLinkIcon />
+                  <div className="flex items-center gap-3">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+                        title="View Source Code"
+                      >
+                        <GithubIcon />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#71717a] hover:text-[#00d4ff] transition-colors"
+                        title="View Live Demo"
+                      >
+                        <ExternalLinkIcon />
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <h3 className="text-xl font-bold mb-3 group-hover:text-[#00ff88] transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-sm text-[#a1a1aa] mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
@@ -666,6 +700,32 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
+                {(project.github || project.live) && (
+                  <div className="flex items-center gap-4 pt-4 border-t border-[#1f1f2e]">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-[#71717a] hover:text-[#00ff88] transition-colors flex items-center gap-1"
+                      >
+                        <GithubIcon />
+                        <span>Source</span>
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-[#71717a] hover:text-[#00d4ff] transition-colors flex items-center gap-1"
+                      >
+                        <ExternalLinkIcon />
+                        <span>Live API</span>
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
