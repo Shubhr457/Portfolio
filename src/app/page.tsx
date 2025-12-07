@@ -52,6 +52,17 @@ const CloseIcon = () => (
   </svg>
 );
 
+const DownloadIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" x2="12" y1="15" y2="3"/>
+  </svg>
+);
+
+// Resume link - Update this with your actual resume URL
+const RESUME_URL = "https://drive.google.com/file/d/1Hcesx-fNj0J6OVCIpmjh4-yokx2S-0P9/view?usp=sharing";
+
 // Data
 const skills = {
   blockchain: [
@@ -173,6 +184,8 @@ const navLinks = [
   { name: "Contact", href: "#contact" },
 ];
 
+const resumeLink = { name: "Resume", href: RESUME_URL, isExternal: true };
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -213,6 +226,15 @@ export default function Home() {
                 </a>
               ))}
               <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link text-sm font-medium flex items-center gap-1"
+              >
+                <DownloadIcon />
+                Resume
+              </a>
+              <a
                 href="#contact"
                 className="btn-primary text-sm"
               >
@@ -243,6 +265,16 @@ export default function Home() {
                     {link.name}
                   </a>
                 ))}
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="nav-link text-sm font-medium flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <DownloadIcon />
+                  Resume
+                </a>
               </div>
             </div>
           )}
@@ -257,9 +289,9 @@ export default function Home() {
         
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 text-center">
           <div className="stagger-children">
-            <div className="inline-block mb-6">
+            {/* <div className="inline-block mb-6">
               <span className="section-heading">Welcome to my portfolio</span>
-            </div>
+            </div> */}
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
               Hi, I&apos;m{" "}
@@ -285,6 +317,15 @@ export default function Home() {
               </a>
               <a href="#contact" className="btn-outline">
                 Get In Touch
+              </a>
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline flex items-center gap-2"
+              >
+                <DownloadIcon />
+                Download Resume
               </a>
             </div>
 
