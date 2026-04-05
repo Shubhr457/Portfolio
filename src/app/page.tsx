@@ -63,122 +63,99 @@ const DownloadIcon = () => (
 // Resume link - Update this with your actual resume URL
 const RESUME_URL = "https://drive.google.com/file/d/1Hcesx-fNj0J6OVCIpmjh4-yokx2S-0P9/view?usp=sharing";
 
-// Data
+// Data — aligned with resume (backend-first; blockchain as secondary strength)
 const skills = {
-  blockchain: [
-    "Solidity",
-    "Rust",
-    "Anchor Framework",
-    "OpenZeppelin",
-    "Hardhat",
-    "Foundry",
-    "Ethers.js",
-    "Solana Web3",
-    "Smart Contracts",
-    "ERC-20",
-    "ERC-1155",
-    "Tokenomics",
-  ],
+  languages: ["JavaScript", "TypeScript", "Rust"],
   backend: [
     "Node.js",
     "Express",
-    "TypeScript",
-    "MongoDB",
-    "PostgreSQL",
-    "Prisma",
-    "Diesel ORM",
-    "Socket.io",
+    "NestJS",
     "REST APIs",
-    "System Design",
+    "GraphQL",
+    "Socket.io",
+    "Cron Jobs",
   ],
-  tools: [
-    "Git",
-    "Docker",
-    "Chai",
-    "Mocha",
-    "Postman",
-    "VS Code",
+  data: ["PostgreSQL", "MongoDB", "Prisma", "Diesel ORM", "Redis"],
+  blockchain: [
+    "Solidity",
+    "Rust / Anchor (Solana)",
+    "Smart Contracts",
+    "EVM",
   ],
+  tools: ["Git", "Docker"],
 };
 
 const experiences = [
   {
-    title: "Blockchain & Backend Developer",
+    title: "Backend Developer",
     company: "SoluLab",
-    period: "February 2025 - Present",
-    duration: "11 months",
+    location: "Remote",
+    period: "June 2024 – March 2026",
+    duration: "~22 months",
     description: [
-      "Built upgradeable smart contracts for ICO, Crowdfunding, Vesting, Staking, Token Sales using Solidity & OpenZeppelin Upgradeable",
-      "Developed Solana programs using Rust + Anchor for DEX logic, marketplace operations, and liquidity flows",
-      "Created 100+ automated tests with Hardhat, Chai, and Ethers.js to ensure contract reliability",
-      "Designed tokenomics features: vesting schedules, rewards, multi-stage fundraising, staking logic",
-      "Built production-grade backends using Node.js, Express, TypeScript with modular & scalable API structures",
-      "Implemented Socket.io for real-time communication and activity tracking",
+      "Terrava (terrava-platform.ai): Sole backend engineer — architected and shipped the full Node.js/TypeScript backend for a live carbon credit marketplace (30+ REST APIs, credit issuance, buyer settlement, admin workflows).",
+      "Designed 30+ MongoDB schemas with Mongoose in a modular service layer with soft-delete patterns for safe iteration.",
+      "Built real-time notifications with Socket.io and cron-based background jobs for automated platform workflows.",
+      "Integrated BanQu supply chain API for geo-tagged traceability data to support enterprise onboarding.",
+      "Dynk Wallet Marketplace: Owned end-to-end backend APIs — core workflows, payment logic, and third-party integrations.",
+      "Updateia Platform: Backend connector for external services with real-time sync across third-party systems.",
     ],
     type: "full-time",
-  },
-  {
-    title: "Blockchain Internship",
-    company: "SoluLab",
-    period: "June 2024 - January 2025",
-    duration: "8 months",
-    description: [
-      "Developed Lydia Coin: comprehensive ERC-20 ecosystem with multi-sig vaults, burning, pausing, and minting",
-      "Built Founoun NFT Marketplace: ERC-1155 with lazy minting, multi-recipient royalty distribution, and emergency controls",
-      "Awarded Intern of the Month for outstanding performance and dedication",
-    ],
-    type: "internship",
     highlight: "🏆 Intern of the Month",
-  },
-  {
-    title: "Data Science Fellow",
-    company: "DataPlay",
-    period: "March 2024 - June 2024",
-    duration: "4 months",
-    description: [
-      "Gained foundational experience in data science and analytics",
-      "Applied machine learning concepts to real-world datasets",
-    ],
-    type: "fellowship",
   },
 ];
 
 const projects = [
   {
+    title: "Web3 Observability Tool",
+    description:
+      "On-chain monitoring for developers: WebSocket RPC ingestion (ethers.js), decoded contract events, failed-transaction and gas-spike detection, configurable alert engine, and incident timeline with dashboard health. Event-driven pipeline into MongoDB — observability in the spirit of Tenderly/Forta. Monorepo UI + dedicated API service (Vercel + Render).",
+    tech: ["NestJS", "Next.js", "TypeScript", "MongoDB", "ethers.js", "WebSocket"],
+    category: "Observability",
+    github: "https://github.com/Shubhr457/Web3-observability-tool",
+    githubApi: "https://github.com/Shubhr457/Web3-observability-tool-Backend",
+    live: "https://web3-observabilityy-tool-ui.vercel.app",
+  },
+  {
+    title: "Auth Backend",
+    description:
+      "Secure authentication REST APIs — registration, login, refresh tokens, password reset — with JWT rotation, SHA-256 token hashing, TTL-based cleanup, rate limiting, CORS, Helmet, and Joi validation.",
+    tech: ["Node.js", "MongoDB", "JWT", "Joi", "Helmet"],
+    category: "Backend",
+    github: "https://github.com/Shubhr457/Auth-backend",
+  },
+  {
     title: "Real-Time Team Task Management System",
-    description: "A comprehensive real-time task management backend with Socket.IO for live updates, JWT + OTP authentication, role-based access control, team collaboration, and activity logging.",
+    description:
+      "Real-time task management backend with Socket.IO, JWT + OTP authentication, RBAC, team collaboration, and activity logging.",
     tech: ["Node.js", "TypeScript", "MongoDB", "Socket.IO", "Express"],
     category: "Backend",
     github: "https://github.com/Shubhr457/Real-Time-Team-Task-Management-System",
     live: "https://real-time-team-task-management-system-4.onrender.com",
   },
   {
-    title: "Real Estate Marketplace",
-    description: "A comprehensive marketplace built on Solana featuring ownership transfers, bidding system, marketplace governance, and full backend integration.",
+    title: "Terrava — Carbon Credit Platform",
+    description:
+      "Production carbon credit marketplace backend: REST APIs, Mongoose data model, notifications, integrations — shipped as sole backend engineer.",
+    tech: ["Node.js", "TypeScript", "MongoDB", "Socket.io", "REST"],
+    category: "Production",
+    live: "https://terrava-platform.ai",
+  },
+  {
+    title: "Real Estate Marketplace (Solana)",
+    description: "Marketplace on Solana with ownership transfers, bidding, governance, and backend integration.",
     tech: ["Solana", "Rust", "Anchor", "TypeScript", "PostgreSQL"],
     category: "Blockchain",
   },
   {
-    title: "Crowdfunding + Vesting + Staking Suite",
-    description: "Upgradeable smart contract ecosystem with cap management, vesting schedules, token claim logic, and multi-stage fundraising capabilities.",
+    title: "Crowdfunding + Vesting + Staking",
+    description: "Upgradeable contracts: caps, vesting, claims, and multi-stage fundraising.",
     tech: ["Solidity", "OpenZeppelin", "Hardhat", "Ethers.js"],
     category: "DeFi",
   },
   {
-    title: "Solana DEX Components",
-    description: "Core DEX functionality including liquidity provisioning, token minting, LP burning, and swap execution mechanisms.",
-    tech: ["Rust", "Anchor", "Solana Web3", "TypeScript"],
-    category: "DeFi",
-  },
-  {
-    title: "Lydia Coin",
-    description: "Complete ERC-20 token ecosystem featuring multi-sig vaults, burning mechanisms, pausing functionality, and dynamic supply tokenomics.",
-    tech: ["Solidity", "OpenZeppelin", "Hardhat", "Chai"],
-    category: "Token",
-  },
-  {
     title: "Founoun NFT Marketplace",
-    description: "ERC-1155 marketplace with lazy minting, multi-recipient royalty distribution, emergency controls, and comprehensive backend integration.",
+    description: "ERC-1155 marketplace with lazy minting, royalties, emergency controls, and backend integration.",
     tech: ["Solidity", "ERC-1155", "Node.js", "MongoDB"],
     category: "NFT",
   },
@@ -191,8 +168,6 @@ const navLinks = [
   { name: "Projects", href: "#projects" },
   { name: "Contact", href: "#contact" },
 ];
-
-const resumeLink = { name: "Resume", href: RESUME_URL, isExternal: true };
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -308,15 +283,18 @@ export default function Home() {
             
             <p className="text-xl md:text-2xl text-[#71717a] mb-4 font-mono">
               <span className="text-[#00ff88]">&lt;</span>
-              Blockchain & Backend Developer
+              Backend Developer · Node.js · TypeScript · Blockchain
               <span className="text-[#00ff88]">/&gt;</span>
             </p>
             
             <p className="text-lg text-[#71717a] max-w-2xl mx-auto mb-8">
-              Building secure, scalable smart contracts and backend systems for the decentralized future.
-              Specializing in <span className="text-[#00d4ff]">Solidity</span>,{" "}
-              <span className="text-[#00d4ff]">Rust (Anchor)</span>, and{" "}
-              <span className="text-[#00d4ff]">Node.js</span>.
+              I build scalable APIs, production backends, and real-time systems with{" "}
+              <span className="text-[#00d4ff]">Node.js</span>,{" "}
+              <span className="text-[#00d4ff]">TypeScript</span>,{" "}
+              <span className="text-[#00d4ff]">PostgreSQL</span>, and{" "}
+              <span className="text-[#00d4ff]">MongoDB</span> — plus smart-contract work on{" "}
+              <span className="text-[#00d4ff]">EVM</span> and{" "}
+              <span className="text-[#00d4ff]">Solana</span> when the problem calls for it.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -380,35 +358,34 @@ export default function Home() {
             <div>
               <span className="section-heading">About Me</span>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Crafting the{" "}
-                <span className="gradient-text">Future of Web3</span>
+                Shipping{" "}
+                <span className="gradient-text">production backends</span>
               </h2>
               <div className="space-y-4 text-[#a1a1aa]">
                 <p>
-                  I&apos;m a passionate Blockchain & Backend Developer with expertise in building 
-                  secure, scalable, and upgradeable smart-contract systems paired with robust 
-                  backend architectures.
+                  I&apos;m a backend developer with about two years of experience building scalable
+                  APIs, data layers, and real-time features in Node.js and TypeScript — from
+                  PostgreSQL and Prisma to MongoDB, Mongoose, and Socket.io.
                 </p>
                 <p>
-                  With over 1.5 years of experience at SoluLab, I&apos;ve worked on high-impact 
-                  projects spanning DeFi, NFT marketplaces, tokenomics, and real-time backend 
-                  systems. I thrive on solving complex engineering problems and delivering 
-                  production-ready solutions.
+                  At SoluLab (remote), I was the sole backend engineer on Terrava, a live carbon
+                  credit marketplace: 30+ REST endpoints, modular services, soft-delete–friendly
+                  schemas, cron jobs, and integrations like BanQu for supply-chain traceability.
                 </p>
                 <p>
-                  My recent work includes upgradeable smart contracts for ICO, Crowdfunding, 
-                  Vesting, and Staking systems, as well as Solana programs for DEX and 
-                  liquidity flows.
+                  I&apos;ve also delivered client backends end to end (e.g. wallet marketplace
+                  flows, payment logic, third-party connectors) and keep hands-on with blockchain
+                  tooling — Solidity, EVM, and Rust/Anchor on Solana — when products need it.
                 </p>
               </div>
               
               <div className="mt-8 flex flex-wrap gap-6">
                 <div className="card p-6 flex-1 min-w-[140px]">
-                  <div className="text-3xl font-bold gradient-text mb-2">100+</div>
-                  <div className="text-sm text-[#71717a]">Automated Tests Written</div>
+                  <div className="text-3xl font-bold gradient-text mb-2">30+</div>
+                  <div className="text-sm text-[#71717a]">Production REST APIs (Terrava)</div>
                 </div>
                 <div className="card p-6 flex-1 min-w-[140px]">
-                  <div className="text-3xl font-bold gradient-text-alt mb-2">1.5+</div>
+                  <div className="text-3xl font-bold gradient-text-alt mb-2">2+</div>
                   <div className="text-sm text-[#71717a]">Years Experience</div>
                 </div>
                 <div className="card p-6 flex-1 min-w-[140px]">
@@ -421,7 +398,7 @@ export default function Home() {
             <div className="relative">
               <div className="gradient-border p-8">
                 <div className="font-mono text-sm">
-                  <div className="text-[#71717a] mb-2">// shubh.config.ts</div>
+                  <div className="text-[#71717a] mb-2">{"// shubh.config.ts"}</div>
                   <div>
                     <span className="text-[#ff79c6]">const</span>{" "}
                     <span className="text-[#00ff88]">developer</span> = {"{"}
@@ -436,22 +413,24 @@ export default function Home() {
                   </div>
                   <div className="pl-4">
                     <span className="text-[#00d4ff]">role</span>:{" "}
-                    <span className="text-[#f1fa8c]">&quot;Blockchain & Backend Dev&quot;</span>,
+                    <span className="text-[#f1fa8c]">&quot;Backend Developer&quot;</span>,
                   </div>
                   <div className="pl-4">
-                    <span className="text-[#00d4ff]">blockchain</span>: [
-                    <span className="text-[#f1fa8c]">&quot;Ethereum&quot;</span>,{" "}
-                    <span className="text-[#f1fa8c]">&quot;Solana&quot;</span>],
+                    <span className="text-[#00d4ff]">stack</span>: [
+                    <span className="text-[#f1fa8c]">&quot;Node&quot;</span>,{" "}
+                    <span className="text-[#f1fa8c]">&quot;TypeScript&quot;</span>,{" "}
+                    <span className="text-[#f1fa8c]">&quot;MongoDB&quot;</span>,{" "}
+                    <span className="text-[#f1fa8c]">&quot;PostgreSQL&quot;</span>],
                   </div>
                   <div className="pl-4">
                     <span className="text-[#00d4ff]">languages</span>: [
-                    <span className="text-[#f1fa8c]">&quot;Solidity&quot;</span>,{" "}
-                    <span className="text-[#f1fa8c]">&quot;Rust&quot;</span>,{" "}
-                    <span className="text-[#f1fa8c]">&quot;TypeScript&quot;</span>],
+                    <span className="text-[#f1fa8c]">&quot;TypeScript&quot;</span>,{" "}
+                    <span className="text-[#f1fa8c]">&quot;JavaScript&quot;</span>,{" "}
+                    <span className="text-[#f1fa8c]">&quot;Rust&quot;</span>],
                   </div>
                   <div className="pl-4">
-                    <span className="text-[#00d4ff]">passion</span>:{" "}
-                    <span className="text-[#f1fa8c]">&quot;Building Web3&quot;</span>,
+                    <span className="text-[#00d4ff]">also</span>:{" "}
+                    <span className="text-[#f1fa8c]">&quot;Solidity · Solana/Anchor&quot;</span>,
                   </div>
                   <div className="pl-4">
                     <span className="text-[#00d4ff]">available</span>:{" "}
@@ -475,15 +454,14 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Blockchain Skills */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="card p-8">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00ff88]/20 to-[#00d4ff]/20 flex items-center justify-center mb-6">
-                <span className="text-2xl">⛓️</span>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00d4ff]/20 to-[#ff00ff]/20 flex items-center justify-center mb-6">
+                <span className="text-2xl">⌨️</span>
               </div>
-              <h3 className="text-xl font-bold mb-4">Blockchain</h3>
+              <h3 className="text-xl font-bold mb-4">Languages</h3>
               <div className="flex flex-wrap gap-2">
-                {skills.blockchain.map((skill) => (
+                {skills.languages.map((skill) => (
                   <span key={skill} className="skill-tag">
                     {skill}
                   </span>
@@ -491,7 +469,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Backend Skills */}
             <div className="card p-8">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00d4ff]/20 to-[#ff00ff]/20 flex items-center justify-center mb-6">
                 <span className="text-2xl">🔧</span>
@@ -506,12 +483,39 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Tools */}
             <div className="card p-8">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00ff88]/20 to-[#00d4ff]/20 flex items-center justify-center mb-6">
+                <span className="text-2xl">🗄️</span>
+              </div>
+              <h3 className="text-xl font-bold mb-4">Data</h3>
+              <div className="flex flex-wrap gap-2">
+                {skills.data.map((skill) => (
+                  <span key={skill} className="skill-tag">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="card p-8">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00ff88]/20 to-[#00d4ff]/20 flex items-center justify-center mb-6">
+                <span className="text-2xl">⛓️</span>
+              </div>
+              <h3 className="text-xl font-bold mb-4">Blockchain</h3>
+              <div className="flex flex-wrap gap-2">
+                {skills.blockchain.map((skill) => (
+                  <span key={skill} className="skill-tag">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="card p-8 sm:col-span-2 lg:col-span-1">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff00ff]/20 to-[#00ff88]/20 flex items-center justify-center mb-6">
                 <span className="text-2xl">🛠️</span>
               </div>
-              <h3 className="text-xl font-bold mb-4">Tools & Testing</h3>
+              <h3 className="text-xl font-bold mb-4">Tools</h3>
               <div className="flex flex-wrap gap-2">
                 {skills.tools.map((skill) => (
                   <span key={skill} className="skill-tag">
@@ -556,7 +560,10 @@ export default function Home() {
                           )}
                         </div>
                         <h3 className="text-xl font-bold text-[#00ff88]">{exp.title}</h3>
-                        <p className="text-lg text-[#00d4ff] mb-1">{exp.company}</p>
+                        <p className="text-lg text-[#00d4ff] mb-1">
+                          {exp.company}
+                          {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
+                        </p>
                         <p className="text-sm text-[#71717a] mb-4">
                           {exp.period} · {exp.duration}
                         </p>
@@ -595,7 +602,10 @@ export default function Home() {
                           )}
                         </div>
                         <h3 className="text-xl font-bold text-[#00ff88]">{exp.title}</h3>
-                        <p className="text-lg text-[#00d4ff] mb-1">{exp.company}</p>
+                        <p className="text-lg text-[#00d4ff] mb-1">
+                          {exp.company}
+                          {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
+                        </p>
                         <p className="text-sm text-[#71717a] mb-4">
                           {exp.period} · {exp.duration}
                         </p>
@@ -619,7 +629,10 @@ export default function Home() {
                           )}
                         </div>
                         <h3 className="text-xl font-bold text-[#00ff88]">{exp.title}</h3>
-                        <p className="text-lg text-[#00d4ff] mb-1">{exp.company}</p>
+                        <p className="text-lg text-[#00d4ff] mb-1">
+                          {exp.company}
+                          {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
+                        </p>
                         <p className="text-sm text-[#71717a] mb-4">
                           {exp.period} · {exp.duration}
                         </p>
@@ -668,7 +681,22 @@ export default function Home() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[#71717a] hover:text-[#00ff88] transition-colors"
-                        title="View Source Code"
+                        title={
+                          "githubApi" in project && project.githubApi
+                            ? "Frontend (GitHub)"
+                            : "Source code"
+                        }
+                      >
+                        <GithubIcon />
+                      </a>
+                    )}
+                    {"githubApi" in project && project.githubApi && (
+                      <a
+                        href={project.githubApi}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+                        title="Backend API service"
                       >
                         <GithubIcon />
                       </a>
@@ -700,8 +728,10 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
-                {(project.github || project.live) && (
-                  <div className="flex items-center gap-4 pt-4 border-t border-[#1f1f2e]">
+                {(project.github ||
+                  ("githubApi" in project && project.githubApi) ||
+                  project.live) && (
+                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[#1f1f2e]">
                     {project.github && (
                       <a
                         href={project.github}
@@ -710,7 +740,22 @@ export default function Home() {
                         className="text-xs text-[#71717a] hover:text-[#00ff88] transition-colors flex items-center gap-1"
                       >
                         <GithubIcon />
-                        <span>Source</span>
+                        <span>
+                          {"githubApi" in project && project.githubApi
+                            ? "Frontend"
+                            : "Source"}
+                        </span>
+                      </a>
+                    )}
+                    {"githubApi" in project && project.githubApi && (
+                      <a
+                        href={project.githubApi}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-[#71717a] hover:text-[#00ff88] transition-colors flex items-center gap-1"
+                      >
+                        <GithubIcon />
+                        <span>Backend</span>
                       </a>
                     )}
                     {project.live && (
@@ -721,7 +766,7 @@ export default function Home() {
                         className="text-xs text-[#71717a] hover:text-[#00d4ff] transition-colors flex items-center gap-1"
                       >
                         <ExternalLinkIcon />
-                        <span>Live API</span>
+                        <span>Live</span>
                       </a>
                     )}
                   </div>
@@ -832,8 +877,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Ready to Build?</h3>
               <p className="text-[#a1a1aa] mb-6">
-                Whether it&apos;s smart contracts, DeFi protocols, or backend systems, 
-                I&apos;m here to bring your vision to life.
+                Whether you need APIs, data modeling, real-time features, or blockchain-adjacent
+                integrations, I&apos;m happy to help you ship.
               </p>
               <a
                 href="mailto:shubhr457@gmail.com"

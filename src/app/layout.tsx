@@ -15,13 +15,25 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shubh Rathore | Blockchain & Backend Developer",
-  description: "Portfolio of Shubh Rathore - Blockchain & Backend Developer specializing in Smart Contracts, Solidity, Rust (Anchor), Node.js, and Web3 Engineering",
-  keywords: ["Blockchain Developer", "Smart Contracts", "Solidity", "Rust", "Anchor", "Web3", "Node.js", "Backend Developer"],
+  title: "Shubh Rathore | Backend Developer",
+  description:
+    "Portfolio of Shubh Rathore — Backend Developer building scalable APIs and production systems with Node.js, TypeScript, PostgreSQL, and MongoDB.",
+  keywords: [
+    "Backend Developer",
+    "Node.js",
+    "TypeScript",
+    "REST APIs",
+    "MongoDB",
+    "PostgreSQL",
+    "Blockchain",
+    "Solana",
+    "Solidity",
+  ],
   authors: [{ name: "Shubh Rathore" }],
   openGraph: {
-    title: "Shubh Rathore | Blockchain & Backend Developer",
-    description: "Building secure, scalable smart contracts and backend systems for Web3",
+    title: "Shubh Rathore | Backend Developer",
+    description:
+      "Scalable APIs, real-time backends, and production-grade systems — Node.js, TypeScript, and data stores you can ship on.",
     type: "website",
   },
 };
