@@ -61,7 +61,8 @@ const DownloadIcon = () => (
 );
 
 // Resume link - Update this with your actual resume URL
-const RESUME_URL = "https://drive.google.com/file/d/1Hcesx-fNj0J6OVCIpmjh4-yokx2S-0P9/view?usp=sharing";
+const RESUME_URL =
+  "https://drive.google.com/file/d/15ukn0QIApa7AaweY54oGmTCZjTg5hBKB/view?usp=sharing";
 
 // Data — aligned with resume (backend-first; blockchain as secondary strength)
 const skills = {
