@@ -126,6 +126,14 @@ const projects = [
     github: "https://github.com/Shubhr457/Auth-backend",
   },
   {
+    title: "JWT Auth Service (FastAPI)",
+    description:
+      "Production-ready authentication REST API built with FastAPI and MongoDB. Features bcrypt password hashing, short-lived access tokens (15 min) and long-lived refresh tokens (7 days), server-side refresh token revocation, reusable get_current_user dependency injection, and auto-generated Swagger UI.",
+    tech: ["Python", "FastAPI", "MongoDB", "Motor", "Beanie", "JWT", "bcrypt"],
+    category: "Backend",
+    github: "https://github.com/Shubhr457/Auth-FastApis",
+  },
+  {
     title: "Real-Time Team Task Management System",
     description:
       "Real-time task management backend with Socket.IO, JWT + OTP authentication, RBAC, team collaboration, and activity logging.",
@@ -133,6 +141,14 @@ const projects = [
     category: "Backend",
     github: "https://github.com/Shubhr457/Real-Time-Team-Task-Management-System",
     live: "https://real-time-team-task-management-system-4.onrender.com",
+  },
+  {
+    title: "Decride — Backend API",
+    description:
+      "TypeScript/Express 5 REST API for a decentralized ride-sharing platform. Covers auth, drivers, riders, rides, KYC, payments, notifications, disputes, and admin modules. Uses Ethers.js for on-chain interaction with smart contracts, Mongoose for MongoDB, Zod for validation, and Jest + supertest for integration tests.",
+    tech: ["TypeScript", "Express", "MongoDB", "Mongoose", "Ethers.js", "JWT", "Zod", "Jest"],
+    category: "Blockchain",
+    github: "https://github.com/Shubhr457/Decride-Backend",
   },
   {
     title: "Terrava — Carbon Credit Platform",
@@ -153,6 +169,14 @@ const projects = [
     description: "Upgradeable contracts: caps, vesting, claims, and multi-stage fundraising.",
     tech: ["Solidity", "OpenZeppelin", "Hardhat", "Ethers.js"],
     category: "DeFi",
+  },
+  {
+    title: "Decride — Smart Contracts",
+    description:
+      "Solidity 0.8.26 smart contract suite for the Decride ride-sharing platform on Polygon Amoy. Includes RIDE ERC-20 token, ride escrow with USD oracle, driver staking, reputation registry, dispute resolution, DAO governor, and token vesting with factory pattern. Built with Hardhat + OpenZeppelin and a full test suite.",
+    tech: ["Solidity", "Hardhat", "OpenZeppelin", "Polygon", "ERC-20", "DAO"],
+    category: "DeFi",
+    github: "https://github.com/Shubhr457/Decride-Contracts",
   },
   {
     title: "Founoun NFT Marketplace",
