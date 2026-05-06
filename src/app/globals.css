@@ -2,6 +2,7 @@
 
 :root {
   --background: #0a0a0f;
+  --bg-alt: #0d0d12;
   --foreground: #e4e4e7;
   --accent-primary: #00ff88;
   --accent-secondary: #00d4ff;
@@ -9,6 +10,21 @@
   --card-bg: #12121a;
   --card-border: #1f1f2e;
   --text-muted: #71717a;
+  --text-body: #a1a1aa;
+  --chip-bg: #1f1f2e;
+  --chip-text: #71717a;
+}
+
+html[data-theme="light"] {
+  --background: #f8fafc;
+  --bg-alt: #f1f5f9;
+  --foreground: #0f172a;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --text-muted: #64748b;
+  --text-body: #475569;
+  --chip-bg: #f1f5f9;
+  --chip-text: #475569;
 }
 
 @theme inline {
@@ -83,16 +99,22 @@ body {
 
 .card:hover {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
   transform: translateY(-4px);
 }
 
 /* Grid background */
 .grid-bg {
   background-image: 
-    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 255, 136, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.04) 1px, transparent 1px);
   background-size: 50px 50px;
+}
+
+html[data-theme="light"] .grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 180, 100, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 180, 100, 0.07) 1px, transparent 1px);
 }
 
 /* Animated gradient border */

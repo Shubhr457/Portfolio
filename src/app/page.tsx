@@ -60,6 +60,19 @@ const DownloadIcon = () => (
   </svg>
 );
 
+const SunIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+  </svg>
+);
+
 // Resume link - Update this with your actual resume URL
 const RESUME_URL =
   "https://drive.google.com/file/d/11YRCMQq-YnSPbbZ3_DVkcR2FQ2PBzYRU/view?usp=sharing";
@@ -197,6 +210,22 @@ const navLinks = [
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const dark = stored ? stored === "dark" : prefersDark;
+    setIsDark(dark);
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.dataset.theme = next ? "dark" : "light";
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -212,7 +241,7 @@ export default function Home() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-[#0a0a0f]/90 backdrop-blur-lg border-b border-[#1f1f2e]"
+            ? "bg-[var(--background)]/90 backdrop-blur-lg border-b border-[var(--card-border)]"
             : "bg-transparent"
         }`}
       >
@@ -242,6 +271,13 @@ export default function Home() {
                 <DownloadIcon />
                 Resume
               </a>
+              <button
+                onClick={toggleTheme}
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--card-border)] text-[var(--text-muted)] hover:text-[#00ff88] hover:border-[#00ff88] transition-all duration-300"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <SunIcon /> : <MoonIcon />}
+              </button>
               <a
                 href="#contact"
                 className="btn-primary text-sm"
@@ -251,17 +287,26 @@ export default function Home() {
             </div>
 
             {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center gap-3">
+              <button
+                onClick={toggleTheme}
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--card-border)] text-[var(--text-muted)] hover:text-[#00ff88] hover:border-[#00ff88] transition-all duration-300"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <SunIcon /> : <MoonIcon />}
+              </button>
             <button
-              className="md:hidden text-[#71717a] hover:text-[#00ff88] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[#00ff88] transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
+            </div>
           </div>
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-[#1f1f2e] pt-4">
+            <div className="md:hidden mt-4 pb-4 border-t border-[var(--card-border)] pt-4">
               <div className="flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <a
@@ -306,13 +351,13 @@ export default function Home() {
               <span className="gradient-text glow-text">Shubh Rathore</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-[#71717a] mb-4 font-mono">
+            <p className="text-xl md:text-2xl text-[var(--text-muted)] mb-4 font-mono">
               <span className="text-[#00ff88]">&lt;</span>
               Backend Developer · Node.js · TypeScript · Blockchain
               <span className="text-[#00ff88]">/&gt;</span>
             </p>
             
-            <p className="text-lg text-[#71717a] max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto mb-8">
               I build scalable APIs, production backends, and real-time systems with{" "}
               <span className="text-[#00d4ff]">Node.js</span>,{" "}
               <span className="text-[#00d4ff]">TypeScript</span>,{" "}
@@ -386,7 +431,7 @@ export default function Home() {
                 Shipping{" "}
                 <span className="gradient-text">production backends</span>
               </h2>
-              <div className="space-y-4 text-[#a1a1aa]">
+              <div className="space-y-4 text-[var(--text-body)]">
                 <p>
                   I&apos;m a backend developer with about two years of experience building scalable
                   APIs, data layers, and real-time features in Node.js and TypeScript — from
@@ -407,21 +452,21 @@ export default function Home() {
               <div className="mt-8 flex flex-wrap gap-6">
                 <div className="card p-6 flex-1 min-w-[140px]">
                   <div className="text-3xl font-bold gradient-text mb-2">30+</div>
-                  <div className="text-sm text-[#71717a]">Production REST APIs (Terrava)</div>
+                  <div className="text-sm text-[var(--text-muted)]">Production REST APIs (Terrava)</div>
                 </div>
                 <div className="card p-6 flex-1 min-w-[140px]">
                   <div className="text-3xl font-bold gradient-text-alt mb-2">2+</div>
-                  <div className="text-sm text-[#71717a]">Years Experience</div>
+                  <div className="text-sm text-[var(--text-muted)]">Years Experience</div>
                 </div>
                 <div className="card p-6 flex-1 min-w-[140px]">
                   <div className="text-3xl font-bold gradient-text mb-2">45+</div>
-                  <div className="text-sm text-[#71717a]">GitHub Repositories</div>
+                  <div className="text-sm text-[var(--text-muted)]">GitHub Repositories</div>
                 </div>
               </div>
             </div>
             
             <div className="relative">
-              <div className="gradient-border p-8">
+              <div className="gradient-border p-8" style={{ background: "#12121a" }}>
                 <div className="font-mono text-sm">
                   <div className="text-[#71717a] mb-2">{"// shubh.config.ts"}</div>
                   <div>
@@ -470,7 +515,7 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-24 bg-[#0d0d12]">
+      <section id="skills" className="py-24 bg-[var(--bg-alt)]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="section-heading">Technical Expertise</span>
@@ -563,114 +608,43 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="relative pl-8 md:pl-0">
-            {/* Timeline line for mobile */}
-            <div className="md:hidden timeline-line" />
+          <div className="relative max-w-3xl mx-auto">
+            {/* Vertical timeline line */}
+            <div className="absolute left-5 top-2 bottom-2 w-0.5 bg-gradient-to-b from-[#00ff88] via-[#00d4ff] to-transparent" />
 
-            <div className="space-y-12">
+            <div className="space-y-10">
               {experiences.map((exp, index) => (
-                <div
-                  key={index}
-                  className="relative md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 items-start"
-                >
-                  {/* Left side - for even items on desktop */}
-                  <div className={`hidden md:block ${index % 2 === 0 ? "text-right" : ""}`}>
-                    {index % 2 === 0 && (
-                      <div className="card p-6">
-                        <div className="flex items-center gap-2 justify-end mb-2">
-                          {exp.highlight && (
-                            <span className="text-sm bg-[#00ff88]/20 text-[#00ff88] px-3 py-1 rounded-full">
-                              {exp.highlight}
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="text-xl font-bold text-[#00ff88]">{exp.title}</h3>
-                        <p className="text-lg text-[#00d4ff] mb-1">
-                          {exp.company}
-                          {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
-                        </p>
-                        <p className="text-sm text-[#71717a] mb-4">
-                          {exp.period} · {exp.duration}
-                        </p>
-                        <ul className="space-y-2 text-sm text-[#a1a1aa]">
-                          {exp.description.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2 justify-end">
-                              <span>{item}</span>
-                              <span className="text-[#00ff88] mt-1">◆</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Timeline dot - desktop */}
-                  <div className="hidden md:flex flex-col items-center">
+                <div key={index} className="relative flex gap-8 items-start">
+                  {/* Timeline dot */}
+                  <div className="relative z-10 flex-shrink-0 w-10 flex justify-center pt-1">
                     <div className="w-4 h-4 rounded-full bg-[#00ff88] pulse-glow" />
-                    {index < experiences.length - 1 && (
-                      <div className="w-0.5 h-full min-h-[200px] bg-gradient-to-b from-[#00ff88] to-[#00d4ff]" />
-                    )}
                   </div>
 
-                  {/* Timeline dot - mobile */}
-                  <div className="md:hidden timeline-dot" />
-
-                  {/* Right side - for odd items on desktop, all items on mobile */}
-                  <div className={`${index % 2 === 1 ? "" : "hidden md:hidden"} md:block`}>
-                    {(index % 2 === 1 || true) && (
-                      <div className="card p-6 md:hidden block">
-                        <div className="flex items-center gap-2 mb-2">
-                          {exp.highlight && (
-                            <span className="text-sm bg-[#00ff88]/20 text-[#00ff88] px-3 py-1 rounded-full">
-                              {exp.highlight}
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="text-xl font-bold text-[#00ff88]">{exp.title}</h3>
-                        <p className="text-lg text-[#00d4ff] mb-1">
-                          {exp.company}
-                          {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
-                        </p>
-                        <p className="text-sm text-[#71717a] mb-4">
-                          {exp.period} · {exp.duration}
-                        </p>
-                        <ul className="space-y-2 text-sm text-[#a1a1aa]">
-                          {exp.description.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <span className="text-[#00ff88] mt-1">◆</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
+                  {/* Card — single copy, no duplication */}
+                  <div className="card p-6 flex-1">
+                    {exp.highlight && (
+                      <div className="mb-3">
+                        <span className="text-sm bg-[#00ff88]/20 text-[#00ff88] px-3 py-1 rounded-full">
+                          {exp.highlight}
+                        </span>
                       </div>
                     )}
-                    {index % 2 === 1 && (
-                      <div className="card p-6 hidden md:block">
-                        <div className="flex items-center gap-2 mb-2">
-                          {exp.highlight && (
-                            <span className="text-sm bg-[#00ff88]/20 text-[#00ff88] px-3 py-1 rounded-full">
-                              {exp.highlight}
-                            </span>
-                          )}
-                        </div>
-                        <h3 className="text-xl font-bold text-[#00ff88]">{exp.title}</h3>
-                        <p className="text-lg text-[#00d4ff] mb-1">
-                          {exp.company}
-                          {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
-                        </p>
-                        <p className="text-sm text-[#71717a] mb-4">
-                          {exp.period} · {exp.duration}
-                        </p>
-                        <ul className="space-y-2 text-sm text-[#a1a1aa]">
-                          {exp.description.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <span className="text-[#00ff88] mt-1">◆</span>
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    <h3 className="text-xl font-bold text-[#00ff88] mb-1">{exp.title}</h3>
+                    <p className="text-lg text-[#00d4ff] mb-1">
+                      {exp.company}
+                      {"location" in exp && exp.location ? ` · ${exp.location}` : ""}
+                    </p>
+                    <p className="text-sm text-[var(--text-muted)] mb-4">
+                      {exp.period} · {exp.duration}
+                    </p>
+                    <ul className="space-y-2 text-sm text-[var(--text-body)]">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-[#00ff88] mt-1 flex-shrink-0">◆</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
@@ -680,7 +654,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24 bg-[#0d0d12]">
+      <section id="projects" className="py-24 bg-[var(--bg-alt)]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="section-heading">Portfolio</span>
@@ -747,7 +721,7 @@ export default function Home() {
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs px-2 py-1 rounded bg-[#1f1f2e] text-[#71717a]"
+                      className="text-xs px-2 py-1 rounded bg-[var(--chip-bg)] text-[var(--chip-text)]"
                     >
                       {tech}
                     </span>
@@ -756,7 +730,7 @@ export default function Home() {
                 {(project.github ||
                   ("githubApi" in project && project.githubApi) ||
                   project.live) && (
-                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[#1f1f2e]">
+                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[var(--card-border)]">
                     {project.github && (
                       <a
                         href={project.github}
@@ -836,14 +810,14 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 bg-[#0d0d12]">
+      <section id="contact" className="py-24 bg-[var(--bg-alt)]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="section-heading">Get In Touch</span>
             <h2 className="text-4xl md:text-5xl font-bold">
               Let&apos;s <span className="gradient-text">Connect</span>
             </h2>
-            <p className="text-[#71717a] mt-4 max-w-xl mx-auto">
+            <p className="text-[var(--text-muted)] mt-4 max-w-xl mx-auto">
               Interested in working together or have a project in mind? 
               I&apos;d love to hear from you. Let&apos;s build something amazing.
             </p>
@@ -860,7 +834,7 @@ export default function Home() {
                   <EmailIcon />
                 </div>
                 <div>
-                  <p className="text-sm text-[#71717a]">Email</p>
+                  <p className="text-sm text-[var(--text-muted)]">Email</p>
                   <p className="font-medium group-hover:text-[#00ff88] transition-colors">
                     shubhr457@gmail.com
                   </p>
@@ -872,7 +846,7 @@ export default function Home() {
                   <LocationIcon />
                 </div>
                 <div>
-                  <p className="text-sm text-[#71717a]">Location</p>
+                  <p className="text-sm text-[var(--text-muted)]">Location</p>
                   <p className="font-medium">Baran, Rajasthan, India</p>
                 </div>
               </div>
@@ -887,7 +861,7 @@ export default function Home() {
                   <LinkedInIcon />
                 </div>
                 <div>
-                  <p className="text-sm text-[#71717a]">LinkedIn</p>
+                  <p className="text-sm text-[var(--text-muted)]">LinkedIn</p>
                   <p className="font-medium group-hover:text-[#00ff88] transition-colors">
                     Connect with me
                   </p>
@@ -901,7 +875,7 @@ export default function Home() {
                 <span className="text-4xl">🚀</span>
               </div>
               <h3 className="text-2xl font-bold mb-4">Ready to Build?</h3>
-              <p className="text-[#a1a1aa] mb-6">
+              <p className="text-[var(--text-body)] mb-6">
                 Whether you need APIs, data modeling, real-time features, or blockchain-adjacent
                 integrations, I&apos;m happy to help you ship.
               </p>
@@ -917,7 +891,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-[#1f1f2e]">
+      <footer className="py-8 border-t border-[var(--card-border)]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-center gap-6">
             <a
