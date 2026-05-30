@@ -75,8 +75,8 @@ const MoonIcon = () => (
 
 // Resume link - Update this with your actual resume URL
 const RESUME_URL =
-  "https://drive.google.com/file/d/11YRCMQq-YnSPbbZ3_DVkcR2FQ2PBzYRU/view?usp=sharing";
-
+  // "https://drive.google.com/file/d/11YRCMQq-YnSPbbZ3_DVkcR2FQ2PBzYRU/view?usp=sharing";
+  "https://drive.google.com/file/d/1fydd-r_MrYxS1BXBqnN0H1Los6HhjlmA/view?usp=sharing";
 // Data — aligned with resume (backend-first; blockchain as secondary strength)
 const skills = {
   languages: ["JavaScript", "TypeScript", "Rust"],
