@@ -1,132 +1,182 @@
 import { ImageResponse } from "next/og";
+import fs from "fs";
+import path from "path";
 
-export const runtime = "edge";
 export const alt = "Shubh Rathore | Backend Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image() {
+export default async function OGImage() {
+  const imgPath = path.join(process.cwd(), "public", "profile.jpeg");
+  const imgData = fs.readFileSync(imgPath);
+  const base64 = `data:image/jpeg;base64,${imgData.toString("base64")}`;
+
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "1200px",
+        height: "630px",
+        display: "flex",
+        backgroundColor: "#0a0a0f",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Grid pattern overlay */}
       <div
         style={{
-          background: "#0a0a0f",
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "repeating-linear-gradient(0deg, rgba(0,255,136,0.04) 0px, rgba(0,255,136,0.04) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, rgba(0,255,136,0.04) 0px, rgba(0,255,136,0.04) 1px, transparent 1px, transparent 60px)",
+          display: "flex",
+        }}
+      />
+
+      {/* Main content row */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
           width: "100%",
           height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          justifyContent: "center",
-          padding: "80px",
-          fontFamily: "sans-serif",
+          padding: "60px 80px",
+          gap: "80px",
           position: "relative",
         }}
       >
-        {/* Grid lines background */}
+        {/* Left: profile photo */}
         <div
           style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px)",
-            backgroundSize: "50px 50px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
           }}
-        />
+        >
+          {/* Gradient ring simulation via outer wrapper */}
+          <div
+            style={{
+              width: "226px",
+              height: "226px",
+              borderRadius: "9999px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#00ff88",
+              padding: "3px",
+            }}
+          >
+            <div
+              style={{
+                width: "220px",
+                height: "220px",
+                borderRadius: "9999px",
+                overflow: "hidden",
+                display: "flex",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={base64}
+                width={220}
+                height={220}
+                alt="Shubh Rathore"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
+        </div>
 
-        {/* Glow orb top-right */}
+        {/* Right: text content */}
         <div
           style={{
-            position: "absolute",
-            top: -60,
-            right: -60,
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(0,255,136,0.2) 0%, transparent 70%)",
-            filter: "blur(60px)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            flex: 1,
+            gap: "0px",
           }}
-        />
-
-        {/* Glow orb bottom-left */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: -40,
-            left: 100,
-            width: 300,
-            height: 300,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%)",
-            filter: "blur(60px)",
-          }}
-        />
-
-        {/* Content */}
-        <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
+        >
           {/* Label */}
           <div
             style={{
+              color: "#00ff88",
               fontSize: 16,
               fontWeight: 700,
-              letterSpacing: 4,
+              letterSpacing: "4px",
               textTransform: "uppercase",
-              color: "#00ff88",
-              marginBottom: 24,
+              marginBottom: "16px",
               display: "flex",
             }}
           >
-            PORTFOLIO
+            BACKEND DEVELOPER
           </div>
 
           {/* Name */}
           <div
             style={{
-              fontSize: 72,
-              fontWeight: 800,
               color: "#e4e4e7",
+              fontSize: 64,
+              fontWeight: 700,
               lineHeight: 1.1,
-              marginBottom: 16,
+              marginBottom: "20px",
               display: "flex",
             }}
           >
             Shubh Rathore
           </div>
 
-          {/* Role */}
+          {/* Subtitle row */}
           <div
             style={{
-              fontSize: 32,
-              fontWeight: 500,
-              color: "#00ff88",
-              marginBottom: 40,
               display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "8px",
+              fontSize: 22,
+              fontFamily: "monospace",
+              marginBottom: "28px",
             }}
           >
-            Backend Developer
+            <span style={{ color: "#00ff88", display: "flex" }}>&lt;</span>
+            <span style={{ color: "#71717a", display: "flex" }}>
+              Node.js · TypeScript · Blockchain
+            </span>
+            <span style={{ color: "#00ff88", display: "flex" }}>/&gt;</span>
           </div>
 
-          {/* Tech chips */}
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            {[
-              "Node.js",
-              "TypeScript",
-              "MongoDB",
-              "PostgreSQL",
-              "Solidity",
-              "FastAPI",
-            ].map((tech) => (
+          {/* Divider */}
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#1f1f2e",
+              marginBottom: "28px",
+              display: "flex",
+            }}
+          />
+
+          {/* Tech pills */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "12px",
+            }}
+          >
+            {["Node.js", "TypeScript", "MongoDB"].map((tech) => (
               <div
                 key={tech}
                 style={{
-                  background: "rgba(0,255,136,0.1)",
+                  backgroundColor: "rgba(0,255,136,0.1)",
                   border: "1px solid rgba(0,255,136,0.3)",
-                  borderRadius: 9999,
+                  color: "#00ff88",
+                  borderRadius: "9999px",
                   padding: "8px 20px",
-                  fontSize: 18,
-                  fontWeight: 500,
-                  color: "#e4e4e7",
+                  fontSize: 16,
                   display: "flex",
                 }}
               >
@@ -135,22 +185,24 @@ export default async function Image() {
             ))}
           </div>
         </div>
-
-        {/* Bottom URL */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 48,
-            right: 80,
-            fontSize: 18,
-            color: "#71717a",
-            display: "flex",
-          }}
-        >
-          shubh-dev.vercel.app
-        </div>
       </div>
-    ),
-    { ...size }
+
+      {/* Bottom-right URL */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "28px",
+          right: "40px",
+          color: "#71717a",
+          fontSize: 14,
+          display: "flex",
+        }}
+      >
+        shubh-dev.vercel.app
+      </div>
+    </div>,
+    {
+      ...size,
+    },
   );
 }

@@ -1,6 +1,4 @@
-import { MetadataRoute } from "next";
-
-const SITE_URL = "https://shubh-dev.vercel.app";
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: "https://shubh-dev.vercel.app/sitemap.xml",
   };
 }
