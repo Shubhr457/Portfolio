@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 // Icons as components
 const GithubIcon = () => (
@@ -320,6 +321,17 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
+
+  // Live GitHub repo count
+  const [repoCount, setRepoCount] = useState<number | null>(null);
+  useEffect(() => {
+    fetch("https://api.github.com/users/Shubhr457")
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d.public_repos === "number") setRepoCount(d.public_repos);
+      })
+      .catch(() => {});
+  }, []);
 
   // Project filter
   const [activeFilter, setActiveFilter] = useState("All");
@@ -673,7 +685,7 @@ export default function Home() {
                 </div>
                 <div className="card p-6 flex-1 min-w-[140px]">
                   <div className="text-3xl font-bold gradient-text mb-2">
-                    45+
+                    {repoCount !== null ? `${repoCount}+` : "…"}
                   </div>
                   <div className="text-sm text-[var(--text-muted)]">
                     GitHub Repositories
@@ -682,7 +694,36 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative flex flex-col gap-6">
+              {/* Profile photo */}
+              <div className="flex justify-center">
+                <div className="relative">
+                  <div
+                    className="w-48 h-48 rounded-full p-[3px]"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))",
+                    }}
+                  >
+                    <div className="w-full h-full rounded-full overflow-hidden">
+                      <Image
+                        src="/profile.jpeg"
+                        alt="Shubh Rathore"
+                        width={192}
+                        height={192}
+                        className="w-full h-full object-cover"
+                        priority
+                      />
+                    </div>
+                  </div>
+                  {/* Available badge */}
+                  <div className="absolute bottom-2 right-2 flex items-center gap-1.5 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-full px-3 py-1 text-xs font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+                    Available
+                  </div>
+                </div>
+              </div>
+
               <div
                 className="gradient-border p-8"
                 style={{ background: "#12121a" }}
