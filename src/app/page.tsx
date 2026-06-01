@@ -388,6 +388,52 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll-spy: track active section
+  const [activeSection, setActiveSection] = useState("");
+  useEffect(() => {
+    const sectionIds = ["about", "skills", "experience", "projects", "contact"];
+    const observers: IntersectionObserver[] = [];
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: "-40% 0px -55% 0px" },
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  // Back-to-top visibility
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll-triggered reveal
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -80px 0px" },
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen grid-bg">
       {/* Navigation */}
@@ -410,7 +456,7 @@ export default function Home() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="nav-link text-sm font-medium"
+                  className={`nav-link text-sm font-medium ${activeSection === link.href.slice(1) ? "active" : ""}`}
                 >
                   {link.name}
                 </a>
@@ -462,7 +508,7 @@ export default function Home() {
                   <a
                     key={link.name}
                     href={link.href}
-                    className="nav-link text-sm font-medium"
+                    className={`nav-link text-sm font-medium ${activeSection === link.href.slice(1) ? "active" : ""}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -502,20 +548,24 @@ export default function Home() {
             </h1>
 
             <p className="text-xl md:text-2xl text-[var(--text-muted)] mb-4 font-mono">
-              <span className="text-[#00ff88]">&lt;</span>
+              <span className="text-[var(--accent-primary)]">&lt;</span>
               Backend Developer · Node.js · TypeScript · Blockchain
-              <span className="text-[#00ff88]">/&gt;</span>
+              <span className="text-[var(--accent-primary)]">/&gt;</span>
             </p>
 
             <p className="text-lg text-[var(--text-muted)] max-w-2xl mx-auto mb-8">
               I build scalable APIs, production backends, and real-time systems
-              with <span className="text-[#00d4ff]">Node.js</span>,{" "}
-              <span className="text-[#00d4ff]">TypeScript</span>,{" "}
-              <span className="text-[#00d4ff]">PostgreSQL</span>, and{" "}
-              <span className="text-[#00d4ff]">MongoDB</span> — plus
-              smart-contract work on <span className="text-[#00d4ff]">EVM</span>{" "}
-              and <span className="text-[#00d4ff]">Solana</span> when the
-              problem calls for it.
+              with{" "}
+              <span className="text-[var(--accent-secondary)]">Node.js</span>,{" "}
+              <span className="text-[var(--accent-secondary)]">TypeScript</span>
+              ,{" "}
+              <span className="text-[var(--accent-secondary)]">PostgreSQL</span>
+              , and{" "}
+              <span className="text-[var(--accent-secondary)]">MongoDB</span> —
+              plus smart-contract work on{" "}
+              <span className="text-[var(--accent-secondary)]">EVM</span> and{" "}
+              <span className="text-[var(--accent-secondary)]">Solana</span>{" "}
+              when the problem calls for it.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -542,7 +592,7 @@ export default function Home() {
                 href="https://linkedin.com/in/shubh-rathore-845577214"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+                className="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
               >
                 <LinkedInIcon />
               </a>
@@ -550,13 +600,13 @@ export default function Home() {
                 href="https://github.com/Shubhr457"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+                className="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
               >
                 <GithubIcon />
               </a>
               <a
                 href="mailto:shubhr457@gmail.com"
-                className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+                className="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
               >
                 <EmailIcon />
               </a>
@@ -566,15 +616,15 @@ export default function Home() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 float">
-          <div className="w-6 h-10 border-2 border-[#00ff88] rounded-full flex justify-center pt-2">
-            <div className="w-1 h-2 bg-[#00ff88] rounded-full animate-bounce" />
+          <div className="w-6 h-10 border-2 border-[var(--accent-primary)] rounded-full flex justify-center pt-2">
+            <div className="w-1 h-2 bg-[var(--accent-primary)] rounded-full animate-bounce" />
           </div>
         </div>
       </section>
 
       {/* About Section */}
       <section id="about" className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 reveal">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <span className="section-heading">About Me</span>
@@ -711,7 +761,7 @@ export default function Home() {
 
       {/* Skills Section */}
       <section id="skills" className="py-24 bg-[var(--bg-alt)]">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 reveal">
           <div className="text-center mb-16">
             <span className="section-heading">Technical Expertise</span>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -795,7 +845,7 @@ export default function Home() {
 
       {/* Experience Section */}
       <section id="experience" className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 reveal">
           <div className="text-center mb-16">
             <span className="section-heading">Career Journey</span>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -856,7 +906,7 @@ export default function Home() {
 
       {/* Projects Section */}
       <section id="projects" className="py-24 bg-[var(--bg-alt)]">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 reveal">
           <div className="text-center mb-16">
             <span className="section-heading">Portfolio</span>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -995,7 +1045,7 @@ export default function Home() {
 
       {/* Education Section */}
       <section className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 reveal">
           <div className="text-center mb-16">
             <span className="section-heading">Background</span>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -1034,7 +1084,7 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className="py-24 bg-[var(--bg-alt)]">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 reveal">
           <div className="text-center mb-16">
             <span className="section-heading">Get In Touch</span>
             <h2 className="text-4xl md:text-5xl font-bold">
@@ -1191,6 +1241,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Back to top */}
+      {showBackToTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-[#00ff88] text-[#0a0a0f] flex items-center justify-center shadow-[0_0_20px_rgba(0,255,136,0.4)] hover:scale-110 transition-transform"
+          aria-label="Back to top"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m18 15-6-6-6 6" />
+          </svg>
+        </button>
+      )}
+
       {/* Footer */}
       <footer className="py-8 border-t border-[var(--card-border)]">
         <div className="max-w-6xl mx-auto px-6">
@@ -1199,7 +1272,7 @@ export default function Home() {
               href="https://linkedin.com/in/shubh-rathore-845577214"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
             >
               <LinkedInIcon />
             </a>
@@ -1207,13 +1280,13 @@ export default function Home() {
               href="https://github.com/Shubhr457"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
             >
               <GithubIcon />
             </a>
             <a
               href="mailto:shubhr457@gmail.com"
-              className="text-[#71717a] hover:text-[#00ff88] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
             >
               <EmailIcon />
             </a>
