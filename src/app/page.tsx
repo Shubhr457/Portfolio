@@ -115,6 +115,18 @@ const CloseIcon = () => (
   </svg>
 );
 
+const SwaggerIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.55 4.18c.42-.015.85.018 1.28.09.61.1 1.22.35 1.74.7.5.33.9.77 1.19 1.28.28.5.43 1.07.43 1.65 0 .76-.21 1.5-.61 2.14-.4.63-1 1.12-1.69 1.4l-.1.04.09.08c.7.59 1.14 1.43 1.23 2.33.01.1.02.21.02.31 0 .42-.08.83-.24 1.21-.16.38-.4.73-.7 1.02-.3.29-.65.52-1.04.67-.39.15-.81.23-1.23.23-.73 0-1.44-.24-2.01-.67-.57-.44-.97-1.05-1.14-1.74l-.02-.1h1.48l.02.07c.12.42.37.8.71 1.07.34.27.76.41 1.19.41.27 0 .53-.05.77-.15.24-.1.46-.25.64-.44.18-.19.32-.41.42-.66.1-.24.15-.5.15-.77 0-.31-.06-.62-.18-.9-.12-.28-.3-.53-.53-.74-.23-.2-.5-.36-.8-.46-.29-.1-.6-.14-.91-.12h-.05v-1.3h.05c.27.01.54-.03.79-.12.25-.09.48-.23.67-.42.19-.18.34-.41.44-.65.1-.25.15-.51.15-.78 0-.34-.08-.67-.24-.97-.16-.29-.39-.55-.67-.73-.28-.19-.6-.3-.94-.34-.33-.03-.67 0-.99.09-.32.09-.61.25-.86.47-.24.21-.43.48-.55.77l-.02.07H9.44l.02-.1c.16-.67.52-1.28 1.03-1.73.52-.46 1.16-.76 1.84-.88.37-.06.75-.09 1.12-.09l.05-.001zm5.43 7.63c-.48 0-.95.13-1.35.38-.4.24-.72.59-.92 1-.2.41-.28.87-.22 1.32.06.45.26.87.56 1.21.3.34.69.59 1.13.71.43.12.89.1 1.31-.04.42-.15.79-.41 1.06-.76.27-.35.43-.77.46-1.21.02-.44-.08-.88-.3-1.27-.22-.38-.54-.7-.93-.92-.38-.21-.81-.33-1.25-.42h-.55zm-9.75 0c-.48 0-.95.13-1.35.38-.4.24-.72.59-.92 1-.2.41-.28.87-.22 1.32.06.45.26.87.56 1.21.3.34.69.59 1.13.71.43.12.89.1 1.31-.04.42-.15.79-.41 1.06-.76.27-.35.43-.77.46-1.21.02-.44-.08-.88-.3-1.27-.22-.38-.54-.7-.93-.92-.38-.21-.81-.33-1.25-.42h-.55z" />
+  </svg>
+);
+
 const DownloadIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -236,10 +248,28 @@ const projects = [
   {
     title: "JWT Auth Service (FastAPI)",
     description:
-      "Production-ready authentication REST API built with FastAPI and MongoDB. Features bcrypt password hashing, short-lived access tokens (15 min) and long-lived refresh tokens (7 days), server-side refresh token revocation, reusable get_current_user dependency injection, and auto-generated Swagger UI.",
-    tech: ["Python", "FastAPI", "MongoDB", "Motor", "Beanie", "JWT", "bcrypt"],
+      "Production-ready JWT authentication REST API built with FastAPI, Motor (async MongoDB driver), and Beanie ODM. Implements a full access + refresh token lifecycle with server-side revocation, bcrypt password hashing, and Pydantic-based request/response validation — all wired together via FastAPI's dependency injection system.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "MongoDB",
+      "Motor",
+      "Beanie",
+      "JWT",
+      "bcrypt",
+      "pydantic-settings",
+    ],
     category: "Backend",
     github: "https://github.com/Shubhr457/Auth-FastApis",
+    highlight: "Production Ready",
+    features: [
+      "POST /auth/register — bcrypt-hashed user creation",
+      "POST /auth/login — access token (15 min) + refresh token (7 days)",
+      "POST /auth/refresh — rotate access token without re-login",
+      "GET /auth/me — protected route via dependency injection",
+      "Server-side token revocation stored in MongoDB",
+    ],
+    docs: "https://github.com/Shubhr457/Auth-FastApis#api-endpoints",
   },
   {
     title: "Real-Time Team Task Management System",
@@ -974,8 +1004,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
-              <div key={index} className="card p-6 group">
-                <div className="flex items-center justify-between mb-4">
+              <div key={index} className="card p-6 group flex flex-col">
+                {/* Top row: category badge + icon links */}
+                <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#00ff88]/10 text-[#00ff88]">
                     {project.category}
                   </span>
@@ -1006,6 +1037,17 @@ export default function Home() {
                         <GithubIcon />
                       </a>
                     )}
+                    {"docs" in project && project.docs && (
+                      <a
+                        href={project.docs as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#71717a] hover:text-[#00d4ff] transition-colors"
+                        title="API Documentation"
+                      >
+                        <SwaggerIcon />
+                      </a>
+                    )}
                     {project.live && (
                       <a
                         href={project.live}
@@ -1019,12 +1061,42 @@ export default function Home() {
                     )}
                   </div>
                 </div>
+
+                {/* Highlight badge */}
+                {"highlight" in project && project.highlight && (
+                  <div className="mb-3">
+                    <span className="text-xs bg-[#00d4ff]/15 text-[#00d4ff] px-3 py-1 rounded-full font-semibold">
+                      ✦ {project.highlight as string}
+                    </span>
+                  </div>
+                )}
+
                 <h3 className="text-xl font-bold mb-3 group-hover:text-[#00ff88] transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-sm text-[#a1a1aa] mb-4">
                   {project.description}
                 </p>
+
+                {/* API endpoints / feature bullets */}
+                {"features" in project &&
+                  Array.isArray(project.features) &&
+                  project.features.length > 0 && (
+                    <ul className="mb-4 space-y-1">
+                      {(project.features as string[]).map((feat, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-xs text-[var(--text-body)]"
+                        >
+                          <span className="text-[#00ff88] mt-0.5 flex-shrink-0">
+                            ▸
+                          </span>
+                          <span className="font-mono">{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
@@ -1035,10 +1107,13 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
+
+                {/* Footer links */}
                 {(project.github ||
                   ("githubApi" in project && project.githubApi) ||
+                  ("docs" in project && project.docs) ||
                   project.live) && (
-                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[var(--card-border)]">
+                  <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[var(--card-border)] mt-auto">
                     {project.github && (
                       <a
                         href={project.github}
@@ -1063,6 +1138,17 @@ export default function Home() {
                       >
                         <GithubIcon />
                         <span>Backend</span>
+                      </a>
+                    )}
+                    {"docs" in project && project.docs && (
+                      <a
+                        href={project.docs as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-[#71717a] hover:text-[#00d4ff] transition-colors flex items-center gap-1"
+                      >
+                        <SwaggerIcon />
+                        <span>API Docs</span>
                       </a>
                     )}
                     {project.live && (
