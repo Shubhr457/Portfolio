@@ -11,6 +11,7 @@ export type Project = {
   highlight?: string;
   features?: string[];
   docs?: string;
+  ongoing?: boolean;
 };
 
 export type Experience = {
@@ -78,11 +79,37 @@ export const projects: Project[] = [
     title: "Web3 Observability Tool",
     description:
       "On-chain monitoring for developers: WebSocket RPC ingestion (ethers.js), decoded contract events, failed-transaction and gas-spike detection, configurable alert engine, and incident timeline with dashboard health. Event-driven pipeline into MongoDB — observability in the spirit of Tenderly/Forta. Monorepo UI + dedicated API service (Vercel + Render).",
-    tech: ["NestJS", "Next.js", "TypeScript", "MongoDB", "ethers.js", "WebSocket"],
+    tech: [
+      "NestJS",
+      "Next.js",
+      "TypeScript",
+      "MongoDB",
+      "ethers.js",
+      "WebSocket",
+    ],
     category: "Observability",
     github: "https://github.com/Shubhr457/Web3-observability-tool",
     githubApi: "https://github.com/Shubhr457/Web3-observability-tool-Backend",
     live: "https://web3-observabilityy-tool-ui.vercel.app",
+  },
+  {
+    title: "Smart Chat",
+    description:
+      "Full-stack real-time chat application backend built with FastAPI and Motor (raw async MongoDB driver). Dockerized with docker-compose for a one-command dev environment. Auth layer is complete; real-time messaging, rooms, and presence features are actively in development.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "MongoDB",
+      "Motor",
+      "JWT",
+      "bcrypt",
+      "Docker",
+      "pydantic-settings",
+    ],
+    category: "Backend",
+    github: "https://github.com/Shubhr457/Smart-Chat",
+    ongoing: true,
+    highlight: "In Progress",
   },
   {
     title: "Auth Backend",
@@ -96,18 +123,19 @@ export const projects: Project[] = [
     title: "JWT Auth Service (FastAPI)",
     description:
       "Production-ready JWT authentication REST API built with FastAPI, Motor (async MongoDB driver), and Beanie ODM. Implements a full access + refresh token lifecycle with server-side revocation, bcrypt password hashing, and Pydantic-based request/response validation — all wired together via FastAPI's dependency injection system.",
-    tech: ["Python", "FastAPI", "MongoDB", "Motor", "Beanie", "JWT", "bcrypt", "pydantic-settings"],
+    tech: [
+      "Python",
+      "FastAPI",
+      "MongoDB",
+      "Motor",
+      "Beanie",
+      "JWT",
+      "bcrypt",
+      "pydantic-settings",
+    ],
     category: "Backend",
     github: "https://github.com/Shubhr457/Auth-FastApis",
     highlight: "Production Ready",
-    features: [
-      "POST /auth/register — bcrypt-hashed user creation",
-      "POST /auth/login — access token (15 min) + refresh token (7 days)",
-      "POST /auth/refresh — rotate access token without re-login",
-      "GET /auth/me — protected route via dependency injection",
-      "Server-side token revocation stored in MongoDB",
-    ],
-    docs: "https://github.com/Shubhr457/Auth-FastApis#api-endpoints",
   },
   {
     title: "Real-Time Team Task Management System",
@@ -115,14 +143,24 @@ export const projects: Project[] = [
       "Real-time task management backend with Socket.IO, JWT + OTP authentication, RBAC, team collaboration, and activity logging.",
     tech: ["Node.js", "TypeScript", "MongoDB", "Socket.IO", "Express"],
     category: "Backend",
-    github: "https://github.com/Shubhr457/Real-Time-Team-Task-Management-System",
+    github:
+      "https://github.com/Shubhr457/Real-Time-Team-Task-Management-System",
     live: "https://real-time-team-task-management-system-4.onrender.com",
   },
   {
     title: "Decride — Backend API",
     description:
       "TypeScript/Express 5 REST API for a decentralized ride-sharing platform. Covers auth, drivers, riders, rides, KYC, payments, notifications, disputes, and admin modules. Uses Ethers.js for on-chain interaction with smart contracts, Mongoose for MongoDB, Zod for validation, and Jest + supertest for integration tests.",
-    tech: ["TypeScript", "Express", "MongoDB", "Mongoose", "Ethers.js", "JWT", "Zod", "Jest"],
+    tech: [
+      "TypeScript",
+      "Express",
+      "MongoDB",
+      "Mongoose",
+      "Ethers.js",
+      "JWT",
+      "Zod",
+      "Jest",
+    ],
     category: "Blockchain",
     github: "https://github.com/Shubhr457/Decride-Backend",
   },

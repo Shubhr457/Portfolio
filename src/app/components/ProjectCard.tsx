@@ -69,12 +69,20 @@ export default function ProjectCard({ project }: Props) {
         </div>
       </div>
 
-      {/* Highlight badge */}
-      {project.highlight && (
-        <div className="mb-3">
-          <span className="text-xs bg-[#00d4ff]/15 text-[#00d4ff] px-3 py-1 rounded-full font-semibold">
-            ✦ {project.highlight}
-          </span>
+      {/* Ongoing / highlight badge */}
+      {(project.ongoing || project.highlight) && (
+        <div className="mb-3 flex items-center gap-2">
+          {project.ongoing && (
+            <span className="inline-flex items-center gap-1.5 text-xs bg-[#ff9900]/15 text-[#ff9900] border border-[#ff9900]/30 px-3 py-1 rounded-full font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff9900] animate-pulse" />
+              In Progress
+            </span>
+          )}
+          {project.highlight && !project.ongoing && (
+            <span className="text-xs bg-[#00d4ff]/15 text-[#00d4ff] px-3 py-1 rounded-full font-semibold">
+              ✦ {project.highlight}
+            </span>
+          )}
         </div>
       )}
 
@@ -90,7 +98,10 @@ export default function ProjectCard({ project }: Props) {
       {project.features && project.features.length > 0 && (
         <ul className="mb-4 space-y-1">
           {project.features.map((feat, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-[var(--text-body)]">
+            <li
+              key={i}
+              className="flex items-start gap-2 text-xs text-[var(--text-body)]"
+            >
               <span className="text-[#00ff88] mt-0.5 flex-shrink-0">▸</span>
               <span className="font-mono">{feat}</span>
             </li>
