@@ -78,7 +78,7 @@ export default function AboutSection({ repoCount }: Props) {
                   <div className="w-full h-full rounded-full overflow-hidden">
                     <Image
                       src="/profile.jpeg"
-                      alt="Shubh Rathore"
+                      alt="Shubh       Rathore"
                       width={192}
                       height={192}
                       className="w-full h-full object-cover"
